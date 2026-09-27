@@ -411,8 +411,13 @@ export function createWatchdog(options) {
 		let failure;
 		for await (const chunk of runtime.stream(request)) {
 			if (chunk?.type === "text-delta") text += chunk.text;
-			else if (chunk?.type === "finish" && chunk.reason !== undefined && chunk.reason !== "stop" && chunk.reason !== "end_turn")
-				failure = `stream finished with reason ${String(chunk.reason)}`;
+			else if (chunk?.type === "finish") {
+				// dsh-llm FinishReason is an object ({ kind: "stop" | "max-tokens" | ... });
+				// accept a bare string too for older/mock streams.
+				const kind = typeof chunk.reason === "string" ? chunk.reason : chunk.reason?.kind;
+				if (kind !== undefined && kind !== "stop" && kind !== "end_turn")
+					failure = `stream finished with reason ${kind}`;
+			}
 		}
 		if (failure !== undefined) throw new Error(failure);
 		return text;

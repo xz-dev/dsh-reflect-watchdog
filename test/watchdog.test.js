@@ -177,7 +177,7 @@ test("apply pauses on the user's ask-user semantic hooks and publishes reflectio
 		},
 		get(service) {
 			if (service === "llm") {
-				return { async *stream() { yield { type: "text-delta", text: XML }; yield { type: "finish", reason: "stop" }; } };
+				return { async *stream() { yield { type: "text-delta", text: XML }; yield { type: "finish", reason: { kind: "stop" } }; } };
 			}
 			if (service === "commands") return { register: (def) => { commands.push(def.name); return () => {}; } };
 			if (service === "tuiShortcuts") return { register: (combo) => { shortcuts.push(combo); return () => {}; } };
