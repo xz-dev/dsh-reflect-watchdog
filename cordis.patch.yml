@@ -1,0 +1,18 @@
+# dsh-reflect-watchdog bundle patch.
+- insert:
+    - id: reflect-watchdog
+      name: "dsh-reflect-watchdog"
+      config:
+        # Mirrors the user's Pi ~/.pi/agent/pi-reflect-watchdog.json: every
+        # threshold stays at the Pi built-in default; the single configured
+        # hookPauses pair (ask-user-wait-started/finished) maps to the
+        # user-questions waterfall pause below.
+        rootLoopLimit: 60
+        allLoopLimit: 300
+        taskMinutes: 20
+        idleResetGapSeconds: 60
+        cancelShortcut: alt+x
+        pauseOnAskUser: false
+        hookPauses:
+          - pause: ask-user-wait-started
+            resume: ask-user-wait-finished
