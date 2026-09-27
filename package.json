@@ -1,6 +1,6 @@
 {
   "name": "dsh-reflect-watchdog",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Root-agent loop and active-time watchdog for DeepSeek Harness (port of pi-reflect-watchdog)",
   "type": "module",
   "main": "src/index.js",

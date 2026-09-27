@@ -763,4 +763,6 @@ export function apply(ctx, rawConfig = {}) {
 	};
 }
 
-export default { name, inject: [], Config, apply };
+export const inject = ["agents"];
+
+export default { name, inject, Config, apply };
